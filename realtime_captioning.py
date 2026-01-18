@@ -17,7 +17,8 @@ def main():
     num_frames = 8
     img_size = 224
     max_len = 100
-    cam_index = 2
+    cam_index = 0
+    caption = [""]
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model_path = './vct_model.pth'
 
@@ -71,15 +72,15 @@ def main():
 
             # generate caption
             with torch.no_grad():
-                cap = generate_caption(model,frames_tensor, voc, max_len=max_len)
-                print("Caption:", " ".join(cap[0]))
+                caption = generate_caption(model,frames_tensor, voc, max_len=max_len)
+                print("Caption:", " ".join(caption[0]))
 
 
         # frame with caption
-        cv2.putText(frame, " ".join(cap[0]), (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        cv2.putText(frame, " ".join(caption[0]), (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
         cv2.imshow('Video Captioning', frame)
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        if cv2.waitKey(1) & 0xFF == ord('q') or 27:
             break
 
     # release the capture
