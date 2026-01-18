@@ -80,7 +80,7 @@ def main():
         cv2.putText(frame, " ".join(caption[0]), (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
         cv2.imshow('Video Captioning', frame)
 
-        if cv2.waitKey(1) & 0xFF == ord('q') or 27:
+        if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
     # release the capture
